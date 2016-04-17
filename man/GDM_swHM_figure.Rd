@@ -1,14 +1,14 @@
-\name{GDM_stHM_figure}
-\alias{GDM_stHM_figure}
+\name{GDM_swHM_figure}
+\alias{GDM_swHM_figure}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Calulate and Draw a GDM figure (stHM).
+Calulate and Draw a GDM figure. (swHM)
 }
 \description{
-Draw a GDM figure for different number of groups to determine the optimal number of groups.
+Draw a GDM figure for different window size to determine the optimal window size.
 }
 \usage{
-GDM_stHM_figure(Control, IPBT.prior = FALSE, groupRanges = 1:200, history = NA, IPBT.id = NA)
+GDM_swHM_figure(Control, IPBT.prior=FALSE,winSizeRanges = seq(from = 5,to = 200,by = 5),history=NA,IPBT.id=NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,7 +19,7 @@ Data matrix for control samples.
 Logical value to specify using external historical data or IPBT prior.
 }
   \item{groupRanges}{
-Group numbers used to calculate GDM figure. Default value is 1 to 200. 
+Window size used to calculate GDM figure. Default value is 5 to 200 increased by 5. 
 }
   \item{history}{
 External historical data is required to provide if using external historical data.

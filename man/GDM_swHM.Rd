@@ -2,30 +2,24 @@
 \alias{GDM_swHM}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Calculate GDM for given window size of swHM
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Given control data, historical variance (or historical variance rank) and window size of swHM, this function calculate correspoding GDM. 
 }
 \usage{
-GDM_swHM(Control, IPBT.prior = FALSE, winSizeRanges = seq(from = 5, to = 200, by = 5), history = NA, IPBT.id = NA)
+GDM_swHM(hist_var,size,control)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{Control}{
-%%     ~~Describe \code{Control} here~~
+  \item{hist_var}{
+historical variance for each gene.
 }
-  \item{IPBT.prior}{
-%%     ~~Describe \code{IPBT.prior} here~~
+  \item{size}{
+Given window size for swHM.
 }
-  \item{winSizeRanges}{
-%%     ~~Describe \code{winSizeRanges} here~~
-}
-  \item{history}{
-%%     ~~Describe \code{history} here~~
-}
-  \item{IPBT.id}{
-%%     ~~Describe \code{IPBT.id} here~~
+  \item{control}{
+Data matrix for control samples.
 }
 }
 \details{
@@ -42,7 +36,7 @@ GDM_swHM(Control, IPBT.prior = FALSE, winSizeRanges = seq(from = 5, to = 200, by
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Ben Li
 }
 \note{
 %%  ~~further notes~~
@@ -53,35 +47,3 @@ GDM_swHM(Control, IPBT.prior = FALSE, winSizeRanges = seq(from = 5, to = 200, by
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (Control, IPBT.prior = FALSE, winSizeRanges = seq(from = 5, 
-    to = 200, by = 5), history = NA, IPBT.id = NA) 
-{
-    if ((IPBT.prior == FALSE & all(is.na(history) == 1)) | (IPBT.prior == 
-        TRUE & all(is.na(IPBT.id) == 1))) 
-        stop("Historical information is missing!\nPlease provide historical data or use IPBT prior!")
-    if (IPBT.prior == FALSE) {
-        hist_var = apply(history, 1, var)
-    }
-    if (IPBT.prior == TRUE) {
-        data(IPBT3digits)
-        data(SampleSize)
-        hist_var = IPBT3digits[, IPBT.id]^2
-    }
-    GDM = sapply(winSizeRanges, function(size) {
-        GDM_swHM(hist_var, size, Control)
-    })
-    plot(winSizeRanges, GDM, xlab = "Window Size", ylab = "GDM", 
-        col = "blue", lwd = 2)
-    GDM
-  }
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

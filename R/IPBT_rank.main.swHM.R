@@ -19,15 +19,44 @@ function(Control,Treatment, IPBT.prior=FALSE,winSize = 50,
         }
         
         
-        Bayes.post.prob.res = IPBT.rank.swHM(Control,Treatment,hist_var,winSize)
-        Adjust_t = Bayes.post.prob.res$adjust_t
-        Pvalue_appro = Bayes.post.prob.res$Pvalue
+        mean_treat=rowMeans(Treatment)
+        mean_control=rowMeans(Control)
+        mu=mean_treat-mean_control
+        n = dim(Control)[2]
+        
+        var=numeric(length = nrow(Control))
+        
+        row.names(Control)=1:nrow(Control)
+        #geneNames = row.names(Control)
+        geneNames = names(hist_var)
+        
+        s2est=apply(Control,1,var)
+        
+        gene_num=length(hist_var)             
+        order_var=order(hist_var)
+        
+        ids=order_var[1:winSize]
+        ix = order_var[1:(2*winSize+1)]
+        var[ids]=bayesHierVar.swHM(Control[ix,],s2est[ix])[1:winSize]
+        
+        var[order_var[(winSize+1):(gene_num-winSize)]] = sapply((winSize+1):(gene_num-winSize), 
+                                                                function(x){ ix = order_var[(x-winSize):(x+winSize)]
+                                                                             bayesHierVar.swHM(Control[ix,],s2est[ix])[(winSize+1)]})      
+        
+        ids=order_var[(gene_num-winSize+1):gene_num]
+        ix = order_var[(gene_num-2*winSize):gene_num]
+        var[ids]= bayesHierVar.swHM(Control[ix,],s2est[ix])[(winSize+2):(2*winSize+1)]
+        
+        Adjust_t = mu/sqrt(var)*sqrt(2/n)
+        
+        Pvalue_appro = 2*pt(abs(Adjust_t) ,df = 2*n -2, lower.tail = FALSE)
+        
         FDR = p.adjust(Pvalue_appro, method = "BH" )
         
         
         
         
-        Output = data.frame(Probe_id = row.names(Bayes.post.prob.res),
+        Output = data.frame(Probe_id = geneNames,
                             Adjust_t = Adjust_t,
                             fold_change = rowMeans(Control) - rowMeans(Treatment), 
                             P_value_appro = Pvalue_appro,
@@ -35,7 +64,6 @@ function(Control,Treatment, IPBT.prior=FALSE,winSize = 50,
         )
         
         Output = Output[order(abs(Output$Adjust_t),decreasing = T),]
-        
         
         
         

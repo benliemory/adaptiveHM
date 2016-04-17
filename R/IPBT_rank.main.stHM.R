@@ -14,20 +14,42 @@ function(Control,Treatment, IPBT.prior=FALSE,groupNumber = 20,
     if(IPBT.prior==TRUE)
     {   
         data(IPBT3digits)
-        data(SampleSize)
         hist_var = IPBT3digits[,IPBT.id]^2
     }
     
-
-    Bayes.post.prob.res = IPBT.rank.stHM(Control,Treatment,hist_var,groupNumber)
-    Adjust_t = Bayes.post.prob.res$adjust_t
-    Pvalue_appro = Bayes.post.prob.res$Pvalue
+    mean_treat=rowMeans(Treatment)
+    mean_control=rowMeans(Control)
+    mu=mean_treat-mean_control
+    n = dim(Control)[2]
+    
+    var=numeric(length = nrow(Control))
+    
+    row.names(Control)=1:nrow(Control)
+    #geneNames = row.names(Control)
+    geneNames = names(hist_var)
+    
+    breakPoint = quantile(hist_var, (1:groupNumber)/groupNumber )
+    
+    groupID = findInterval(hist_var, breakPoint,rightmost.closed = TRUE)
+    
+    groupRes = unname(by(Control,groupID,bayesHierVar.stHM) )
+    
+    vecRes = unlist(groupRes)
+    var = vecRes[order(as.numeric(names(vecRes)))]
+    
+    if(is.null(geneNames)==0)
+    {names(var) = geneNames }
+    
+    Adjust_t = mu/sqrt(var)*sqrt(2/n)
+    
+    Pvalue_appro = 2*pt(abs(Adjust_t) ,df = 2*n -2, lower.tail = FALSE)
+    
     FDR = p.adjust(Pvalue_appro, method = "BH" )
     
     
     
     
-    Output = data.frame(Probe_id = row.names(Bayes.post.prob.res),
+    Output = data.frame(Probe_id = geneNames,
                         Adjust_t = Adjust_t,
                         fold_change = rowMeans(Control) - rowMeans(Treatment), 
                         P_value_appro = Pvalue_appro,

@@ -2,21 +2,21 @@
 \alias{bayesHierVar.swHM}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Variance estimate by empirical Bayes Hierarchical model (swHM)
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This function estimates variance for each gene using empirical hierarchical model with the gene's "neighbouring" information for swHM. After deciding the window size, this function will be applied to each gene. To make it more efficient, we calculate each gene's sample variance outside this function. 
 }
 \usage{
-bayesHierVar.swHM(x, s2est)
+bayesHierVar.swHM(subdata, s2est)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{subdata}{
+Data matrix for genes included in this hierarchical model.
 }
   \item{s2est}{
-%%     ~~Describe \code{s2est} here~~
+Sample variance for each gene.
 }
 }
 \details{
@@ -33,7 +33,7 @@ bayesHierVar.swHM(x, s2est)
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Ben Li
 }
 \note{
 %%  ~~further notes~~
@@ -44,33 +44,3 @@ bayesHierVar.swHM(x, s2est)
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x, s2est) 
-{
-    K = ncol(x)
-    v = K - 1
-    I = nrow(x)
-    s2bar = mean(s2est)
-    S = var(s2est) * (I - 1)
-    Best = (2/v)/(1 + 2/v) * (I - 1)/I + 1/(1 + 2/v) * (2/v) * 
-        s2bar^2 * (I - 1)/S
-    if (Best < 1) {
-        var_hier_est = (1 - Best) * s2est + Best * s2bar
-        result = var_hier_est
-    }
-    else {
-        result = rep(s2bar, I)
-        names(result) = names(s2est)
-    }
-    return(result)
-  }
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

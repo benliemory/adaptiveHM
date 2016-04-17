@@ -2,10 +2,10 @@
 \alias{GDM_stHM}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Calculate GDM for given number of groups of stHM
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Given control data, historical variance (or historical variance rank) and number of groups of stHM, this function calculate correspoding GDM. 
 }
 \usage{
 GDM_stHM(hist_var, N, control)
@@ -13,13 +13,13 @@ GDM_stHM(hist_var, N, control)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{hist_var}{
-%%     ~~Describe \code{hist_var} here~~
+historical variance for each gene.
 }
   \item{N}{
-%%     ~~Describe \code{N} here~~
+Given number of groups for stHM.
 }
   \item{control}{
-%%     ~~Describe \code{control} here~~
+Data matrix for control samples.
 }
 }
 \details{
@@ -36,7 +36,7 @@ GDM_stHM(hist_var, N, control)
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Ben Li
 }
 \note{
 %%  ~~further notes~~
@@ -47,21 +47,3 @@ GDM_stHM(hist_var, N, control)
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (hist_var, N, control) 
-{
-    breakPoint = quantile(hist_var, (1:N)/N)
-    groupID = findInterval(hist_var, breakPoint, rightmost.closed = TRUE)
-    groupRes = unname(by(control, groupID, bayesHierVar.stHM))
-    mean(sapply(groupRes, sd))
-  }
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
