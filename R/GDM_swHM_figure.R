@@ -23,7 +23,7 @@ GDM_swHM_figure <-
 
 
     
-        GDM = sapply(winSizeRanges,function(size){GDM_swHM(hist_var,size,Control) } )
+        GDM = sapply(winSizeRanges,function(size){GDM_swHM(hist_var,size,Control) } )/2
                
         plot(winSizeRanges,GDM,xlab="Window Size",ylab = "GDM",col="blue",lwd = 2 )
         
