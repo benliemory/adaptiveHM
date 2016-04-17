@@ -1,30 +1,31 @@
-GDM_swHM <-
-function(Control, IPBT.prior=FALSE,winSizeRanges = seq(from = 5,to = 200,by = 5),
-             history=NA,IPBT.id=NA)
-    {
-        if ( (IPBT.prior==FALSE & all(is.na(history)==1)  ) | 
-                 (IPBT.prior==TRUE &  all(is.na(IPBT.id)==1) )  ) 
-            stop("Historical information is missing!\nPlease provide historical data or use IPBT prior!") 
-        
-        if(IPBT.prior==FALSE)
-        {
-            hist_var = apply(history,1,var)
-        }
-        
-        if(IPBT.prior==TRUE)
-        {   
-            data(IPBT3digits)
-            data(SampleSize)
-            hist_var = IPBT3digits[,IPBT.id]^2
-        }  
-        
 
 
+GDM_swHM = function(hist_var,size,control)
+{   
+    # size is the half size of the window
     
-        GDM = sapply(winSizeRanges,function(size){GDM_swHM(hist_var,size,Control) } )
-               
-        plot(winSizeRanges,GDM,xlab="Window Size",ylab = "GDM",col="blue",lwd = 2 )
-        
-        GDM
-        
+    s2est=apply(control,1,var)
+    
+    gene_num=length(hist_var)  
+    groupSD=numeric(gene_num)
+    order_sd=order(hist_var)
+    
+    
+    ix = order_sd[1:(2*size+1)]
+    groupSD[1:size]=sd(bayesHierVar.swHM(control[ix,],s2est[ix]) )
+    
+    groupSD[(size+1):(gene_num-size) ] = sapply((size+1):(gene_num-size), 
+                 function(x){ ix = order_sd[(x-size):(x+size)]
+                              sd(bayesHierVar.swHM(control[ix,],s2est[ix])) } )      
+    
+    
+    ix = order_sd[(gene_num-2*size):gene_num]
+    groupSD[(gene_num-size+1):gene_num]=sd(bayesHierVar.swHM(control[ix,],s2est[ix]) )
+    
+    
+    mean(groupSD)
+    
+    
 }
+
+
