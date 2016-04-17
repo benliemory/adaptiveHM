@@ -1,9 +1,9 @@
-Package: IPBT_rank
+Package: rankIPBT
 Type: Package
-Title: IPBT_rank
+Title: What the package does (short line)
 Version: 1.0
 Date: 2016-04-17
-Author: Ben Li
-Maintainer: Ben Li <ben.li@emory.edu>
-Description: IPBT_rank, using the rank information from historical data, investigates the feasibility and effectiveness of improving hierarchical models (HM) in the problem of detecting differentially expressed genes by applying hierarchical models to similar genes. IPBT_rank includes two different approaches: stratified hierarchical model (stHM) and sliding window hierarchical model (swHM). stHM divides all genes into a few groups and HM is applied in each group while swHM applies HM in the "neighbouring" genes. We also provde a "Group Dividing Metric" (GDM) to determine an optimal group number or window size. IPBT_rank can also be applied to Methylation 450K array. What is more, only using historical rank makes it possible for IPBT_rank to borrow information across different platforms. Similar to IPBT, this package also provides users the possibility of using their own historical data or IPBT priors.96 pre-calculated IPBT priors are built in the package. 
-License: GPL-2
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
