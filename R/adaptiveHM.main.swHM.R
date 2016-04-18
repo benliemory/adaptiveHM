@@ -1,4 +1,4 @@
-IPBT_rank.main.swHM <-
+adaptiveHM.main.swHM <-
 function(Control,Treatment, IPBT.prior=FALSE,winSize = 50,
              history=NA,IPBT.id=NA)
     {

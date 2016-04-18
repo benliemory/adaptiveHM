@@ -1,14 +1,14 @@
-\name{IPBT_rank.main.stHM}
-\alias{IPBT_rank.main.stHM}
+\name{adaptiveHM.main.swHM}
+\alias{adaptiveHM.main.swHM}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Detect DE genes by stHM
+Detect DE genes by swHM
 }
 \description{
-stHM divides all genes into a few groups and HM is applied in each group while swHM applies HM in the "neighbouring" genes. Only rank information from historical data is used.
+swHM applies HM in the "neighbouring" genes. Only rank information from historical data is used.
 }
 \usage{
-IPBT_rank.main.stHM(Control, Treatment, IPBT.prior = FALSE, groupNumber = 20, history = NA, IPBT.id = NA)
+adaptiveHM.main.swHM(Control, Treatment, IPBT.prior = FALSE, winSize = 50, history = NA, IPBT.id = NA)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,8 +21,8 @@ Data matrix for treatment samples.
   \item{IPBT.prior}{
 Logical value to specify using external historical data or IPBT prior.
 }
-  \item{groupNumber}{
-Number of groups used in stHM. It is better to use GDM to determine optimal number of groups first. 
+  \item{winSize}{
+Window size used in swHM. It is better to use GDM to determine optimal number of groups first. 
 }
   \item{history}{
 External historical data is required to provide if using external historical data.
@@ -45,7 +45,7 @@ IPBT prior id is required if using IPBT prior.
 %% ~put references to the literature/web site here ~
 }
 \author{
-Ben Li
+%%  ~~who you are~~
 }
 \note{
 %%  ~~further notes~~

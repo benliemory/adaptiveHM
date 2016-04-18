@@ -1,4 +1,4 @@
-IPBT_rank.main.stHM <-
+adaptiveHM.main.stHM <-
 function(Control,Treatment, IPBT.prior=FALSE,groupNumber = 20,
                      history=NA,IPBT.id=NA)
 {
