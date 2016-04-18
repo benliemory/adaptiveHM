@@ -1,5 +1,5 @@
 # adaptiveHM
-Historical Rank-based Adaptive Hierarchical model 
+Historical Rank-based Adaptive Hierarchical Model 
 
 
 ## Quick Installation Guide:
