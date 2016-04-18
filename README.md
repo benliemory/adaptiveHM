@@ -1,17 +1,17 @@
-# rankIPBT
+# adaptiveHM
 Historical Rank-based Informative Priors Bayesian Test
 
 
 ## Quick Installation Guide:
-If R package "devtools" has been loaded, rankIPBT can be easily installed by following: 
+If R package "devtools" has been loaded, adaptiveHM can be easily installed by following: 
 
 library(devtools)
 
-install_github(repo = "benliemory/rankIPBT")
+install_github(repo = "benliemory/adaptiveHM")
 
 ## A Simple Example:
 
-library(rankIPBT)
+library(adaptiveHM)
 
 \#####  Load Example Data
 
@@ -27,7 +27,7 @@ GDMs = GDM_stHM_figure(ExampleData$Control, IPBT.prior=TRUE,IPBT.id=35,groupRang
 \##### From GDM figure, we use 50 groups in stHM
 
 \##### Step II Obtain DE gene list from Stratified Hierarchial model
-DE_gene_lists_stHM = IPBT_rank.main.stHM(ExampleData$Control,ExampleData$Treatment, 
+DE_gene_lists_stHM = adaptiveHM.main.stHM(ExampleData$Control,ExampleData$Treatment, 
                                     IPBT.prior=TRUE,IPBT.id=35,
                                     groupNumber = 50 )
 
@@ -47,7 +47,7 @@ GDMs_swHM = GDM_swHM_figure(ExampleData$Control, IPBT.prior = FALSE,history = hi
 \##### Step II Obtain DE gene list from Stratified Hierarchial model
 \##### Notice: Window size here refers to one side window size. The whole window is 2*window_size + 1 
 
-DE_gene_lists_swHM = IPBT_rank.main.swHM(ExampleData$Control,ExampleData$Treatment,
+DE_gene_lists_swHM = adaptiveHM.main.swHM(ExampleData$Control,ExampleData$Treatment,
                                         IPBT.prior = FALSE,history = history,
                                         winSize = 10)
 
