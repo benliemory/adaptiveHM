@@ -1,5 +1,5 @@
 # adaptiveHM
-Historical Rank-based Informative Priors Bayesian Test
+Historical Rank-based Adaptive Hierarchical model 
 
 
 ## Quick Installation Guide:
