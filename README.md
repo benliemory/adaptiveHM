@@ -52,4 +52,6 @@ DE_gene_lists_swHM = adaptiveHM.main.swHM(ExampleData$Control,ExampleData$Treatm
                                         winSize = 10)
 
 ## Reference
-Li B, Sun Z, He Q, Zhu Y, Qin ZS (2015) Bayesian inference with historical data-based informative priors improves detection of differentially expressed genes Bioinformatics (Oxford, England) doi:10.1093/bioinformatics/btv631
+Li B, Sun Z, He Q, Zhu Y, Qin ZS (2015) Bayesian inference with historical data-based informative priors improves detection of differentially expressed genes Bioinformatics (Oxford, England) doi:10.1093/bioinformatics/btv631  
+
+Li B, Li Y, Qin Z. (2016) Improving hierarchical models using historical data with applications in high throughput genomics data analysis. Statistics in Biosciences. 1-18.
